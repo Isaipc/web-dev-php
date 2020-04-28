@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programación Web - Validaciones</title>
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/css.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+</head>
+
+<body class="p-2">
+    <div class="container">
+        <div class="alert alert-danger tooltip position-absolute right" role="alert">
+            <strong id="type">error</strong>&nbsp;
+            <span id="msj"></span>
+        </div>
+        <div class="cyan-text font-weight-bold">
+            <h3>Formulario</h3>
+        </div>
+        <form class="">
+            <div class="form-row">
+                <div class="col-md-4 mb-3 md-form">
+                    <!-- <i class="fas fa-user prefix"></i> -->
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" name="nombre" type="text" class="form-control">
+                </div>
+                <div class="col-md-4 mb-3 md-form">
+                    <label for="apellidos">Apellidos</label>
+                    <input id="apellidos" name="apellidos" type="text" class="form-control">
+                </div>
+                <div class="col-md-2 mb-3 md-form">
+                    <label for="dni">DNI</label>
+                    <input id="dni" name="dni" type="number" class="form-control" min="0">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 md-form">
+                    <input id="password" name="password" type="password" class="form-control">
+                    <label for="password">Contraseña</label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-2 mb-3 md-form">
+                    <input id="telefono" name="telefono" type="number" class="form-control" min="0">
+                    <label for="telefono">Telefono</label>
+                </div>
+                <div class="col-md-4 mb-3 md-form">
+                    <input id="email" name="email" type="email" class="form-control">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col-md-2 mb-3 md-form">
+                    <input id="cp" name="cp" type="number" class="form-control" min="0">
+                    <label for="cp">Código postal</label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-2 mb-3 md-form">
+                    <input id="edad" name="edad" type="number" class="form-control" min="0">
+                    <label for="edad">Edad</label>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-2">Sexo</div>
+                    <div class="">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="mujer" name="sexo" checked>
+                            <label class="custom-control-label" for="mujer">Mujer</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="hombre" name="sexo">
+                            <label class="custom-control-label" for="hombre">Hombre</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 mb-3 md-form">
+                    <input id="direccion" name="direccion" type="text" class="form-control">
+                    <label for="direccion">Dirección</label>
+                </div>
+            </div>
+            <!-- <button type="submit" class="btn btn-success btn-rounded" onclick="validarFormulario();">Validar</button> -->
+            <a class="btn btn-success btn-rounded" onclick="validarFormulario();">Validar</a>
+        </form>
+    </div>
+
+    <script>
+        function validarFormulario() {
+            var nombre = $('#nombre')
+            var apellidos = $('#apellidos')
+            var dni = $('#dni')
+            var password = $('#password')
+            var telefono = $('#telefono')
+            var email = $('#email')
+            var cp = $('#cp')
+            var edad = $('#edad')
+            var direccion = $('#direccion')
+
+            if (nombre.val() == '')
+                return _alert(nombre, 'Debe proporcionar su(s) nombre(s)')
+
+            if (apellidos.val() == '')
+                return _alert(apellidos, 'Debe proporcionar su(s) apellido(s)')
+
+            if (dni.val() == '')
+                return _alert(dni, 'Debe proporcionar su dni')
+            else if (isNaN(dni.val()))
+                return _alert(dni, 'Dni invalido, solo se permite numeros')
+
+            if (password.val() == '')
+                return _alert(password, 'Debe proporcionar su contraseña')
+
+            if (telefono.val() == '')
+                return _alert(telefono, 'Debe proporcionar su número telefonico')
+            else if (isNaN(telefono.val()))
+                return _alert(telefono, 'Número telefonico invalido, solo se permite numeros')
+
+            if (email.val() == '')
+                return _alert(email, 'Debe proporcionar su email')
+
+            if (cp.val() == '')
+                return _alert(cp, 'Debe proporcionar su código postal')
+            else if (cp.val().length != 5)
+                return _alert(cp, 'El código postal debe contener solo 5 digitos')
+
+            if (edad.val() == '')
+                return _alert(edad, 'Debe proporcionar su edad')
+            else if (edad.val() < 18)
+                return _alert(edad, 'La edad no puede ser menor de 18')
+
+            if (direccion.val() == '')
+                return _alert(direccion, 'Debe proporcionar su direccion')
+
+            return _alert(null, 'FORMULARIO LLENADO CORRECTAMENTE', true);
+        }
+
+        function _alert(control, msj, returnValue = false) {
+            if (control != null) control.focus()
+            $('#msj').html(msj)
+            $('#type').html(returnValue ? 'Completado' : 'Error')
+
+            $('.alert').removeClass('alert-success alert-danger')
+                .addClass(returnValue ? 'alert-success' : 'alert-danger')
+
+            $('.alert').fadeTo(5000, 500).slideUp(500, function () {
+                $(".alert").slideUp(500)
+            })
+            return returnValue;
+        }
+    </script>
+</body>
+
+</html>
