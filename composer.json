@@ -1,0 +1,12 @@
+{
+    "name": "akira/web-dev-php",
+    "require": {
+        "vlucas/phpdotenv": "^4.1"
+    },
+    "authors": [
+        {
+            "name": "Isai Polito",
+            "email": "ispolitoc@gmail.com"
+        }
+    ]
+}
