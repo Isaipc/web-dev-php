@@ -4,17 +4,17 @@
 
 const ROOT_DIR  = __DIR__ . '/../../';
 
-/** Se cargan las librerias y se habilita el acceso a las variables de entorno:*/
-
 try
 {
+    /** Se cargan las librerias:*/
     $autoload = ROOT_DIR . 'vendor/autoload.php';
-
+    
     if(!file_exists($autoload) || !is_readable($autoload))
-        throw new Exception('El archivo que desea incluir no existe o no se puede leer: ' . $autoload);
+    throw new Exception('El archivo que desea incluir no existe o no se puede leer: ' . $autoload);
     
     require_once $autoload;
-
+    
+    /** Se cargan las variables de entorno desde el archivo ".env" :*/
     $dotenv = Dotenv\Dotenv::createImmutable(ROOT_DIR);
     $dotenv->load();
 
