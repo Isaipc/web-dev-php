@@ -5,14 +5,14 @@ include 'database/connection.php';
 if(isset($_GET['name'])){
     
     try{
-        $sql = $conn->prepare('SELECT * FROM account
-        WHERE name LIKE ' . $conn->quote('%:name%'));
+        $search = 'SELECT * FROM account WHERE name LIKE :name';
+        $sql = $conn->prepare($search);
 
-        $saql->bindParam(':name', $_POST['name']);
+        $name = "%". $_GET['name'] . "%";
+        $sql->bindParam(':name', $name, PDO::PARAM_STR);
         $sql->execute();
         
-        $result = $sql->fetch();
-        
+        $result = $sql->fetchAll();
         echo json_encode($result);
         
     }catch(PDOException $e){
