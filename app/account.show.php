@@ -6,7 +6,7 @@ if(isset($_GET['id'])){
 
     try{
         $sql = $conn->prepare('SELECT * FROM account WHERE id = :id');
-        $sql->bindParam(':id', $_POST['id']);
+        $sql->bindParam(':id', $_GET['id']);
         $sql->execute();
         
         $result = $sql->fetch();
