@@ -3,7 +3,7 @@
 include 'database/connection.php';
 
 if(count($_POST) == 0 || !isset($_POST['id']))
-    return http_response_code(400);
+    die(http_response_code(400));
 
 try {
     $sql = $conn->prepare(
@@ -16,7 +16,7 @@ try {
             email = :email,
             zipcode = :zipcode,
             age = :age,
-            sex = :sex,
+            gender = :gender,
             address = :address 
         WHERE id = :id');
 
@@ -29,7 +29,7 @@ try {
     $sql->bindParam(':email', $_POST['email']);
     $sql->bindParam(':zipcode', $_POST['zipcode']);
     $sql->bindParam(':age', $_POST['age']);
-    $sql->bindParam(':sex', $_POST['sex']);
+    $sql->bindParam(':gender', $_POST['gender']);
     $sql->bindParam(':address', $_POST['address']);
     $sql->execute();
     

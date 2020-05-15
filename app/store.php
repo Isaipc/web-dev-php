@@ -3,11 +3,11 @@
 include 'database/connection.php';
 
 if(count($_POST) == 0)
-    return http_response_code(400);
+    die(http_response_code(400));
 
 try {
-    $sql = $conn->prepare('INSERT INTO account VALUES(
-        :name, :lastname, :dni, :password, :phone, :email, :zipcode, :age, :sex, :address)');
+    $sql = $conn->prepare('INSERT INTO account(name, lastname, dni, password, phone, email, zipcode, age, gender, address)
+    VALUES(:name, :lastname, :dni, :password, :phone, :email, :zipcode, :age, :gender, :address)');
 
     $sql->bindParam(':name', $_POST['name']);
     $sql->bindParam(':lastname', $_POST['lastname']);
@@ -17,7 +17,7 @@ try {
     $sql->bindParam(':email', $_POST['email']);
     $sql->bindParam(':zipcode', $_POST['zipcode']);
     $sql->bindParam(':age', $_POST['age']);
-    $sql->bindParam(':sex', $_POST['sex']);
+    $sql->bindParam(':gender', $_POST['gender']);
     $sql->bindParam(':address', $_POST['address']);
     $sql->execute();
     
@@ -25,5 +25,5 @@ try {
         'Cuenta agregada con exito' : 'Operación fallida: La cuenta no puede ser agregada';
 
 }catch(PDOException $e){
-    die('ERROR : ' . $e->getMessage());
+    die('ERROR : ' . $e);
 }
