@@ -11,7 +11,7 @@ try{
     $sql->execute();
 
     echo $sql->rowCount() > 0 ?
-        'La cuenta fue borrada con exito.' : 'La cuenta no puede ser borrada.';
+        http_response_code(204) :  http_response_code(400);
 
 }catch(PDOException $e){
     die('ERROR: ' . $e->getMessage());

@@ -34,8 +34,8 @@ try {
     $sql->execute();
     
     echo $sql->rowCount() > 0  ?
-        'Cuenta actualizada con exito.' : 'Operación fallida: La cuenta no se pudo actualizar.';
-
+        http_response_code(202) :  http_response_code(200);
+        
 }catch(PDOException $e){
     die('ERROR : ' . $e->getMessage());
 }

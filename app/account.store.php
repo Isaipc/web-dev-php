@@ -6,7 +6,8 @@ if(count($_POST) == 0)
     die(http_response_code(400));
 
 try {
-    $sql = $conn->prepare('INSERT INTO account(name, lastname, dni, password, phone, email, zipcode, age, gender, address)
+    $sql = $conn->prepare('INSERT INTO 
+    account(name, lastname, dni, password, phone, email, zipcode, age, gender, address)
     VALUES(:name, :lastname, :dni, :password, :phone, :email, :zipcode, :age, :gender, :address)');
 
     $sql->bindParam(':name', $_POST['name']);
@@ -21,9 +22,9 @@ try {
     $sql->bindParam(':address', $_POST['address']);
     $sql->execute();
     
-    if($sql->rowCount() > 0)
-        die(http_response_code(200));
-        
+    echo $sql->rowCount() > 0  ?
+        http_response_code(201) :  http_response_code(400);
+                
 }catch(PDOException $e){
     die('ERROR : ' . $e);
 }
