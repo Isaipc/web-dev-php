@@ -1,8 +1,7 @@
 $(document).ready(function () {
+    init();
 
-    console.log(name);
-    init();    
-
+    //SEARCH account
     $('#account-search').on('keyup', (e) => {
         const search = $('#account-search').val().trim();
         const url = 'app/account.search.php';
@@ -18,11 +17,11 @@ $(document).ready(function () {
     $('#account-form').submit(e => {
         e.preventDefault();
 
-        const url = $('#accountId').val() == '' ? 'app/account.store.php' : 'app/account.edit.php';
+        const url = $('#id').val() == '' ? 'app/account.store.php' : 'app/account.edit.php';
         console.log(url);
 
         const postData = {
-            id: accountId.val(),
+            id: id.val(),
             name: firstname.val().trim(),
             lastname: lastname.val().trim(),
             email: email.val().trim(),
@@ -37,39 +36,33 @@ $(document).ready(function () {
 
         console.log(postData);
 
-        form = $('#account-form');
         if (form[0].checkValidity() === false) {
             console.log('error-de-validación');
             e.preventDefault();
             e.stopPropagation();
             form.addClass('was-validated');
         } else {
-            console.log('subido');
             $.post(url, postData, (response) => {
                 console.log(response);
                 form.trigger('reset');
-                fetchAll();
+                reset();
+                $('#account-modal').modal('hide');
+                listAll();
             });
-
-            form.removeClass('was-validated');
-            $('#account-panel').modal('hide');
-            $('#accountId').val('');
-            title.html('Nueva cuenta');
         }
     });
 
 
     // SINGLE account: SHOW / SELECT
     $(document).on('click', '.account-edit', (e) => {
-        const id = e.currentTarget.id;
+        const selectedId = e.currentTarget.id;
         const url = 'app/account.show.php';
 
-        $.get(url, { id }, (response) => {
+        $.get(url, { id: selectedId }, (response) => {
             const account = JSON.parse(response);
-            console.log(account);
 
             title.html('Editar cuenta');
-            accountId.val(account.id);
+            id.val(account.id);
             firstname.val(account.name);
             lastname.val(account.lastname);
             email.val(account.email);
@@ -80,13 +73,7 @@ $(document).ready(function () {
             age.val(account.age);
             address.val(account.address);
             $('input:radio[value="' + account.gender + '"]').prop('checked', true);
-            
-            $('#account-modal').modal({
-                focus: true,
-                show: true
-            });
-
-            const inputs = [accountId, firstname, lastname, email, password, dni, phone, zipcode, age, address, gender];
+            $('#account-modal').modal();
         });
     });
 
@@ -95,11 +82,11 @@ $(document).ready(function () {
         e.preventDefault();
 
         const url = 'app/account.delete.php';
-        const id = e.currentTarget.id;
+        const selectedId = e.currentTarget.id;
 
-        $.post(url, { id }, (response) => {
+        $.post(url, { id: selectedId }, (response) => {
             console.log(response);
-            fetchAll();
+            listAll();
         });
     });
 
@@ -108,9 +95,10 @@ $(document).ready(function () {
         e.preventDefault();
 
         const url = 'app/account.show.php';
-        const id = e.currentTarget.id;
+        const selectedId = e.currentTarget.id;
 
-        $.get(url, { id }, (response) => {
+        $.get(url, { id: selectedId }, (response) => {
+            console.log(response);
             const account = JSON.parse(response);
             $('#id-account').html(account.id);
             $('#name-account').html(account.name);
@@ -129,38 +117,32 @@ $(document).ready(function () {
     });
 
     // FETCH accountS: LIST
-    function fetchAll() {
-        $.ajax({
-            url: 'app/account.list.php',
-            type: 'GET',
-            dataType: 'json',
-            success: (response) => {
-                const accounts = response;
+    function listAll() {
+        const url = 'app/account.list.php';
 
-                if (accounts.length > 0)
-                    bind(accounts);
-                else
-                    $('#account-grid').html(`
-                        <div class="card-body">
-                            <div class="alert alert-warning" role="alert">
-                                <i class="fas fa-info-circle"></i>
-                                <strong>No hay cuentas guardadas</strong>
-                            </div>
+        $.get(url, null, (response) => {
+            const accounts = JSON.parse(response);
+            if (accounts.length > 0)
+                bind(accounts);
+            else
+                $('#account-grid').html(`
+                    <div class="card-body">
+                        <div class="alert alert-warning" role="alert">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>No hay cuentas guardadas</strong>
                         </div>
-                    `);
-            },
-            error: (e) => {
-                console.log(e);
-            }
+                    </div>
+                `);
         });
     }
 
     function bind(accounts) {
         let template = '';
-
+        let i = 0;
         accounts.forEach(account => {
             template += `
                 <tr>
+                    <td> ${(++i)} </td>
                     <td>
                         <a href="#" class="account-show btn-link" id="${account.id}" data-toggle="modal"
                         data-target="#account-details-modal">
@@ -168,10 +150,9 @@ $(document).ready(function () {
                         </a>
                     </td>
                     <td> ${account.lastname} </td>
-                    <td> ${account.phone} </td>
                     <td> ${account.email} </td>
                     <td> ${account.created_at} </td>
-                    <td> ${account.updated_at} </td>
+                    <td> ${account.updated_at == null ? '' : account.updated_at} </td>
                     <td>         
                         <button id="${account.id}"
                             class="account-edit btn btn-outline-primary waves-effect btn-sm btn-rounded">
@@ -190,41 +171,43 @@ $(document).ready(function () {
         $('#account-grid-body').html(template);
     }
 
-    $('#account-modal').on('show.bs.modal', function (e) {
+
+    //Al ocultarse el formulario
+    $('#account-modal').on('hidden.bs.modal', (e) => {
         const element = e.currentTarget.id;
-        console.log(e);
-        if(element == '#btn-add')
-            console.log('wow!');
-        else
-            console.log('sorry :C');
+        reset();
     });
-    
-    function reset(){
+
+    //Al mostrarse el formulario
+    $('#account-modal').on('show.bs.modal', function (e) {
+
+    });
+
+    function reset() {
+        form.removeClass('was-validated');
         title.html('Nueva cuenta');
+        clearItems();
     }
-    function setValue(items){
+
+    function clearItems() {
+        items = inputs;
         items.forEach(element => {
-            console.log(element);
-        });
-    }
-    
-    function clearItems(items){
-        items.forEach(element => {
-            console.log(element);
             element.val('');
         });
     }
-    
-    function focusItems(items){
+
+    function focusItems(items) {
         items.forEach(element => {
             console.log(element);
             element.focus();
         });
     }
 
-    function init(){
+
+
+    function init() {
         title = $('#title');
-        accountId = $('#accountId');
+        id = $('#id');
         firstname = $('#name');
         lastname = $('#lastname');
         email = $('#email');
@@ -235,8 +218,10 @@ $(document).ready(function () {
         age = $('#age');
         address = $('#address');
         gender = $('input:radio[name="gender"]');
+        inputs = [id, firstname, lastname, email, password, dni, phone, zipcode, age, address];
 
-        accountId.val('');
-        fetchAll();
+        form = $('#account-form');
+        id.val('');
+        listAll();
     }
 });
