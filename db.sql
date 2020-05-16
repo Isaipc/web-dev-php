@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `account`(
     `email` VARCHAR(191) NOT NULL,
     `zipcode` MEDIUMINT NOT NULL,
     `age` TINYINT NOT NULL,
-    `sex` ENUM('Hombre', 'Mujer') NOT NULL,
+    `gender` ENUM('Hombre', 'Mujer') NOT NULL,
     `address` VARCHAR(90) NOT NULL,
     `created_at` TIMESTAMP NOT NULL,
     `updated_at` TIMESTAMP NOT NULL
