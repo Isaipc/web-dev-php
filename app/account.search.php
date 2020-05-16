@@ -2,13 +2,13 @@
 
 include 'database/connection.php';
 
-if(isset($_GET['name'])){
+if(isset($_GET['search'])){
     
     try{
         $search = 'SELECT * FROM account WHERE name LIKE :name';
         $sql = $conn->prepare($search);
 
-        $name = "%". $_GET['name'] . "%";
+        $name = "%". $_GET['search'] . "%";
         $sql->bindParam(':name', $name, PDO::PARAM_STR);
         $sql->execute();
         
