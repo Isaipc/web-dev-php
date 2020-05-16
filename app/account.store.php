@@ -21,9 +21,9 @@ try {
     $sql->bindParam(':address', $_POST['address']);
     $sql->execute();
     
-    echo $sql->rowCount() > 0 ?
-        'Cuenta agregada con exito' : 'Operación fallida: La cuenta no puede ser agregada';
-
+    if($sql->rowCount() > 0)
+        die(http_response_code(200));
+        
 }catch(PDOException $e){
     die('ERROR : ' . $e);
 }
