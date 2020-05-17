@@ -1,18 +1,18 @@
 $(document).ready(function () {
     init();
+
     //SEARCH account
     $('#account-search').on('keyup', (e) => {
-        
+
         const search = $('#account-search').val().trim();
         const url = 'app/account.search.php';
-        
+
         $.get(url, { search }, (response) => {
             const accounts = JSON.parse(response);
-            
+
             if (accounts.length > 0)
                 bind(accounts);
-            else
-            {
+            else {
                 $('#account-grid').hide();
                 $('#grid-alert').html(`No se encontrarón coincidencias`).show();
             }
@@ -50,10 +50,20 @@ $(document).ready(function () {
         } else {
             $.post(url, postData, (response) => {
                 console.log(response);
-                form.trigger('reset');
-                reset();
-                $('#account-modal').modal('hide');
-                listAll();
+                let alertObj = { };
+                
+                if(response == 200)
+                {
+                    form.trigger('reset');
+                    reset();
+                    $('#account-modal').modal('hide');
+                    listAll();
+                    alertObj = { type: 'success', message: 'Guardado exitoso' };
+                }
+                else
+                    alertObj = { type: 'danger', message: 'Se ha producido un error' };
+                
+                showAlert(alertObj);
             });
         }
     });
@@ -130,8 +140,7 @@ $(document).ready(function () {
             const accounts = JSON.parse(response);
             if (accounts.length > 0)
                 bind(accounts);
-            else
-            {
+            else {
                 $('#account-grid').hide();
                 $('#grid-alert').html(`No hay cuentas guardadas`).show();
             }
@@ -185,6 +194,23 @@ $(document).ready(function () {
     $('#account-modal').on('show.bs.modal', function (e) {
     });
 
+
+    function showAlert(alert) {
+        let iClasses = alert.type == 'success' ? 'fa fa-check' : 'fa fa-times';
+        let alertClasses = 'alert-' + alert.type + ' bg-' + alert.type;
+        
+        $('#alert-type').removeClass().addClass(iClasses);
+        $('#alert-account').removeClass('alert-success alert-danger bg-success bg-danger');
+        console.log($('#alert-account'));
+        $('#alert-account').addClass(alertClasses);
+
+        $('#alert-message').html(alert.message);
+        $('#alert-account').fadeTo(3000, 500)
+            .slideUp(500, function () {
+                $("#alert-account").slideUp(500)
+            });
+    }
+
     function reset() {
         form.removeClass('was-validated');
         title.html('Nueva cuenta');
@@ -206,6 +232,7 @@ $(document).ready(function () {
     }
 
     function init() {
+        $('#alert-account').hide();
         title = $('#title');
         id = $('#id');
         firstname = $('#name');
