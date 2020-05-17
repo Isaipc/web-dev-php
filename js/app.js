@@ -71,7 +71,7 @@ $(document).ready(function () {
     $(document).on('click', '.account-edit', (e) => {
         const selectedId = e.currentTarget.id;
         const url = 'app/account.show.php';
-        
+
         $.get(url, { id: selectedId }, (response) => {
             const account = JSON.parse(response);
             title.html('Editar cuenta');
@@ -134,26 +134,38 @@ $(document).ready(function () {
         });
     });
 
-    // FETCH accountS: LIST
-    function listAll() {
-        const url = 'app/account.list.php';
 
-        $.get(url, null, (response) => {
-            const accounts = JSON.parse(response);
-            if (accounts.length > 0)
-                bind(accounts);
-            else {
-                $('#account-grid').hide();
-                $('#grid-alert').html(`No hay cuentas guardadas`).show();
-            }
-        });
-    }
+    //Al ocultarse el formulario
+    $('#account-modal').on('hidden.bs.modal', (e) => {
+        reset();
+    });
 
-    function bind(accounts) {
-        let template = '';
-        let i = 0;
-        accounts.forEach(account => {
-            template += `
+    //Al mostrarse el formulario
+    $('#account-modal').on('shown.bs.modal', (e) => {
+        focusInputs();
+    });
+});
+
+// FETCH accountS: LIST
+function listAll() {
+    const url = 'app/account.list.php';
+
+    $.get(url, null, (response) => {
+        const accounts = JSON.parse(response);
+        if (accounts.length > 0)
+            bind(accounts);
+        else {
+            $('#account-grid').hide();
+            $('#grid-alert').html(`No hay cuentas guardadas`).show();
+        }
+    });
+}
+
+function bind(accounts) {
+    let template = '';
+    let i = 0;
+    accounts.forEach(account => {
+        template += `
                 <tr>
                     <td> ${(++i)} </td>
                     <td>
@@ -179,74 +191,62 @@ $(document).ready(function () {
                         </button>
                     </td>
                 </tr>`
-        });
-        $('#account-grid-body').html(template);
-        $('#account-grid').show();
-        $('#grid-alert').hide();
-    }
-
-
-    //Al ocultarse el formulario
-    $('#account-modal').on('hidden.bs.modal', (e) => {
-        reset();
     });
+    $('#account-grid-body').html(template);
+    $('#account-grid').show();
+    $('#grid-alert').hide();
+}
 
-    //Al mostrarse el formulario
-    $('#account-modal').on('shown.bs.modal', (e) => {
-        focusInputs();
+function showAlert(alert) {
+    let iClasses = alert.type == 'success' ? 'fa fa-check' : 'fa fa-times';
+    let alertClasses = 'alert-' + alert.type + ' bg-' + alert.type;
+
+    $('#alert-type').removeClass().addClass(iClasses);
+    $('#alert-account').removeClass('alert-success alert-danger bg-success bg-danger');
+    $('#alert-account').addClass(alertClasses);
+
+    $('#alert-message').html(alert.message);
+    $('#alert-account').fadeTo(3000, 500)
+        .slideUp(500, function () {
+            $("#alert-account").slideUp(500)
+        });
+}
+
+function reset() {
+    form.removeClass('was-validated');
+    title.html('Nueva cuenta');
+    clearIputs();
+}
+
+function clearIputs() {
+    inputs.forEach(element => {
+        element.val('');
     });
+}
 
-    function showAlert(alert) {
-        let iClasses = alert.type == 'success' ? 'fa fa-check' : 'fa fa-times';
-        let alertClasses = 'alert-' + alert.type + ' bg-' + alert.type;
+function focusInputs() {
+    inputs.forEach(element => {
+        element.focus();
+    });
+}
 
-        $('#alert-type').removeClass().addClass(iClasses);
-        $('#alert-account').removeClass('alert-success alert-danger bg-success bg-danger');
-        $('#alert-account').addClass(alertClasses);
+function init() {
+    $('#alert-account').hide();
+    title = $('#title');
+    id = $('#id');
+    firstname = $('#name');
+    lastname = $('#lastname');
+    email = $('#email');
+    password = $('#password');
+    dni = $('#dni');
+    phone = $('#phone');
+    zipcode = $('#zipcode');
+    age = $('#age');
+    address = $('#address');
+    gender = $('input:radio[name="gender"]');
+    inputs = [id, lastname, email, password, dni, phone, zipcode, age, address, firstname];
 
-        $('#alert-message').html(alert.message);
-        $('#alert-account').fadeTo(3000, 500)
-            .slideUp(500, function () {
-                $("#alert-account").slideUp(500)
-            });
-    }
-
-    function reset() {
-        form.removeClass('was-validated');
-        title.html('Nueva cuenta');
-        clearIputs();
-    }
-
-    function clearIputs() {
-        inputs.forEach(element => {
-            element.val('');
-        });
-    }
-
-    function focusInputs() {
-        inputs.forEach(element => {
-            element.focus();
-        });
-    }
-
-    function init() {
-        $('#alert-account').hide();
-        title = $('#title');
-        id = $('#id');
-        firstname = $('#name');
-        lastname = $('#lastname');
-        email = $('#email');
-        password = $('#password');
-        dni = $('#dni');
-        phone = $('#phone');
-        zipcode = $('#zipcode');
-        age = $('#age');
-        address = $('#address');
-        gender = $('input:radio[name="gender"]');
-        inputs = [id, lastname, email, password, dni, phone, zipcode, age, address, firstname];
-
-        form = $('#account-form');
-        id.val('');
-        listAll();
-    }
-});
+    form = $('#account-form');
+    id.val('');
+    listAll();
+}
