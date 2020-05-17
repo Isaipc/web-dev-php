@@ -1,7 +1,7 @@
 [
     {
-        "name": "ALDO",
-        "lastname": "PUCHETA",
+        "name": "EMILIO",
+        "lastname": "TENORIO",
         "dni": "4566549876",
         "password": "qaWsdfr54f65",
         "phone": "6546",
@@ -12,12 +12,12 @@
         "address": "Ciudad Victoria, Tamaulipas, MX"
     },
     {
-        "name": "MARIA DEL ROSARIO",
-        "lastname": "DÍAZ DE LEÓN",
+        "name": "SANDRA",
+        "lastname": "GUTIERREZ",
         "dni": "1897981842",
         "password": "dcs4d89c4ds7979",
         "phone": "9812651325",
-        "email": "chayex.101@gmail.com",
+        "email": "sandra.101@gmail.com",
         "zipcode": "10232",
         "age": "21",
         "gender": "Mujer",
@@ -37,7 +37,7 @@
     },
     {
         "name": "ALEJANDRA",
-        "lastname": "PEREZ",
+        "lastname": "PULIDO",
         "dni": "5465616487",
         "password": "dcs4d89c4ds7979",
         "phone": "6598896532",
