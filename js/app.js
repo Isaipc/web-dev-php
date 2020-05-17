@@ -50,15 +50,14 @@ $(document).ready(function () {
         } else {
             $.post(url, postData, (response) => {
                 console.log(response);
-                let alertObj = { };
-                
-                if(response == 200)
-                {
+                let alertObj = {};
+
+                if (response == 200) {
                     form.trigger('reset');
                     reset();
                     $('#account-modal').modal('hide');
                     listAll();
-                    alertObj = { type: 'success', message: 'Guardado exitoso' };
+                    alertObj = { type: 'success', message: 'Se guardó la cuenta correctamente' };
                 }
                 else
                     alertObj = { type: 'danger', message: 'Se ha producido un error. ' + response };
@@ -100,8 +99,13 @@ $(document).ready(function () {
         const selectedId = e.currentTarget.id;
 
         $.post(url, { id: selectedId }, (response) => {
-            console.log(response);
-            listAll();
+            if (response == 200) {
+                alertObj = { type: 'success', message: 'Se ha eliminado la cuenta correctamente' };
+                listAll();
+            }
+            else
+                alertObj = { type: 'danger', message: 'No se pudó eliminar la cuenta. ' + response };
+            showAlert(alertObj);
         });
     });
 
@@ -196,7 +200,7 @@ $(document).ready(function () {
     function showAlert(alert) {
         let iClasses = alert.type == 'success' ? 'fa fa-check' : 'fa fa-times';
         let alertClasses = 'alert-' + alert.type + ' bg-' + alert.type;
-        
+
         $('#alert-type').removeClass().addClass(iClasses);
         $('#alert-account').removeClass('alert-success alert-danger bg-success bg-danger');
         $('#alert-account').addClass(alertClasses);
