@@ -1,15 +1,21 @@
 $(document).ready(function () {
     init();
-
     //SEARCH account
     $('#account-search').on('keyup', (e) => {
+        
         const search = $('#account-search').val().trim();
         const url = 'app/account.search.php';
-
+        
         $.get(url, { search }, (response) => {
-            console.log(response);
             const accounts = JSON.parse(response);
-            bind(accounts);
+            
+            if (accounts.length > 0)
+                bind(accounts);
+            else
+            {
+                $('#account-grid').hide();
+                $('#grid-alert').html(`No se encontrarón coincidencias`).show();
+            }
         });
     });
 
@@ -22,8 +28,8 @@ $(document).ready(function () {
 
         const postData = {
             id: id.val(),
-            name: firstname.val().trim(),
-            lastname: lastname.val().trim(),
+            name: firstname.val().trim().toUpperCase(),
+            lastname: lastname.val().trim().toUpperCase(),
             email: email.val().trim(),
             password: password.val(),
             dni: dni.val().trim(),
@@ -125,14 +131,10 @@ $(document).ready(function () {
             if (accounts.length > 0)
                 bind(accounts);
             else
-                $('#account-grid').html(`
-                    <div class="card-body">
-                        <div class="alert alert-warning" role="alert">
-                            <i class="fas fa-info-circle"></i>
-                            <strong>No hay cuentas guardadas</strong>
-                        </div>
-                    </div>
-                `);
+            {
+                $('#account-grid').hide();
+                $('#grid-alert').html(`No hay cuentas guardadas`).show();
+            }
         });
     }
 
@@ -167,8 +169,9 @@ $(document).ready(function () {
                     </td>
                 </tr>`
         });
-
         $('#account-grid-body').html(template);
+        $('#account-grid').show();
+        $('#grid-alert').hide();
     }
 
 
@@ -180,7 +183,6 @@ $(document).ready(function () {
 
     //Al mostrarse el formulario
     $('#account-modal').on('show.bs.modal', function (e) {
-
     });
 
     function reset() {
@@ -202,8 +204,6 @@ $(document).ready(function () {
             element.focus();
         });
     }
-
-
 
     function init() {
         title = $('#title');

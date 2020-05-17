@@ -24,19 +24,25 @@
             <span id="msj"></span>
         </div>
 
-        <div id="account-search-panel">
-            <form>
-                <div class="form-inline md-form">
-                    <i class="fa fa-search prefix"></i>
-                    <label for="account-search">Buscar</label>
+        <form>
+            <div class="form-inline justify-content-between">
+                <div class="col md-form input-with-pre-icon">
+                    <i class="fa fa-search input-prefix"></i>
+                    <!-- <i id="btn-clear-search" class="fa fa-times input-prefix"></i> -->
                     <input type="text" name="search" id="account-search" class="form-control">
+                    <label for="account-search">Buscar</label>
                 </div>
-            </form>
-        </div>
+                <button id="btn-add" type="button" class="btn btn-primary btn-circle" data-toggle="modal"
+                    data-target="#account-modal">
+                    <span class="d-none d-sm-inline">agregar&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </form>
 
-        <div id="account-grid-panel" class="card">
+        <div class="card">
             <div class="card-body">
-                <table class="table table-responsive table-hover">
+                <table id="account-grid" class="table table-responsive table-hover">
                     <thead>
                         <th>#</th>
                         <th>Nombre</th>
@@ -47,16 +53,11 @@
                     </thead>
                     <tbody id="account-grid-body"></tbody>
                 </table>
+                <div id="grid-alert" class="alert alert-warning" role="alert">
+                    <i class="fas fa-info-circle"></i><strong id="grid-message"></strong>
+                </div>
             </div>
         </div>
-
-
-        <!-- Button trigger modal -->
-        <button id="btn-add" type="button" class="btn btn-primary btn-circle" data-toggle="modal"
-            data-target="#account-modal">
-            <span>agregar</span>&nbsp;&nbsp;&nbsp;&nbsp;
-            <i class="fa fa-plus" aria-hidden="true"></i>
-        </button>
 
         <!-- Modal -->
         <form id="account-form" class="needs-validation" novalidate>
@@ -75,13 +76,13 @@
                                 <input type="hidden" name="id" id="id">
                                 <div class="col-lg-6 col-md-6 md-form">
                                     <input id="name" name="nombre" type="text" class="text-uppercase form-control"
-                                    required>
+                                        required>
                                     <label for="name">Nombre</label>
                                     <div class="invalid-feedback">El nombre es un campo requerido</div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 md-form">
                                     <input id="lastname" name="apellidos" type="text"
-                                    class="text-uppercase form-control" required>
+                                        class="text-uppercase form-control" required>
                                     <label for="lastname">Apellidos</label>
                                     <div class="invalid-feedback">El apellido es un campo requerido</div>
                                 </div>
@@ -158,7 +159,7 @@
 
         <!-- Modal -->
         <div class="modal fade" id="account-details-modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-        aria-hidden="true">
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
