@@ -3,7 +3,7 @@
 include 'database/connection.php';
 
 if(count($_POST) == 0 || !isset($_POST['id']))
-    return http_response_code(400);
+    die(http_response_code(400));
 
 try{
     $sql = $conn->prepare('DELETE FROM account WHERE id = :id');
@@ -11,7 +11,7 @@ try{
     $sql->execute();
 
     echo $sql->rowCount() > 0 ?
-        http_response_code(204) :  http_response_code(400);
+        http_response_code(200) :  http_response_code(400);
 
 }catch(PDOException $e){
     die('ERROR: ' . $e->getMessage());
