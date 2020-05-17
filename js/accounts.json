@@ -1,0 +1,50 @@
+[
+    {
+        "name": "ALDO",
+        "lastname": "PUCHETA",
+        "dni": "4566549876",
+        "password": "qaWsdfr54f65",
+        "phone": "6546",
+        "email": "kirito117@outlook.com",
+        "zipcode": "54654",
+        "age": "25",
+        "gender": "Hombre",
+        "address": "Ciudad Victoria, Tamaulipas, MX"
+    },
+    {
+        "name": "MARIA DEL ROSARIO",
+        "lastname": "DÍAZ DE LEÓN",
+        "dni": "1897981842",
+        "password": "dcs4d89c4ds7979",
+        "phone": "9812651325",
+        "email": "chayex.101@gmail.com",
+        "zipcode": "10232",
+        "age": "21",
+        "gender": "Mujer",
+        "address": "Guadalajara, Jalisco, MX"
+    },
+    {
+        "name": "JOHN",
+        "lastname": "DOE",
+        "dni": "5646518125",
+        "password": "pojfop2{sdf",
+        "phone": "6545980212",
+        "email": "john.doe@gmail.com",
+        "zipcode": "54300",
+        "age": "35",
+        "gender": "Hombre",
+        "address": "Texas, US"
+    },
+    {
+        "name": "ALEJANDRA",
+        "lastname": "PEREZ",
+        "dni": "5465616487",
+        "password": "dcs4d89c4ds7979",
+        "phone": "6598896532",
+        "email": "alexandra_p@hotmail.com",
+        "zipcode": "10265",
+        "age": "65",
+        "gender": "Mujer",
+        "address": "Ciudad de México, MX"
+    }
+]
