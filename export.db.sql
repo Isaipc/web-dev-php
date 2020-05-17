@@ -16,6 +16,7 @@
 CREATE DATABASE IF NOT EXISTS `web_dev_php` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `web_dev_php`;
 
+DROP TABLE `account`;
 -- Volcando estructura para tabla web_dev_php.account
 CREATE TABLE IF NOT EXISTS `account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -26,15 +27,15 @@ CREATE TABLE IF NOT EXISTS `account` (
   `phone` varchar(12) NOT NULL,
   `email` varchar(191) NOT NULL,
   `zipcode` int(11) NOT NULL,
-  `age` tinyint(4) NOT NULL,
+  `age` int(11) NOT NULL,
   `gender` enum('Hombre','Mujer') NOT NULL,
   `address` varchar(90) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla web_dev_php.account: 3 rows
+-- Volcando datos para la tabla web_dev_php.account: 2 rows
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 
