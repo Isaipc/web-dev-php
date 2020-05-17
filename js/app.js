@@ -71,10 +71,9 @@ $(document).ready(function () {
     $(document).on('click', '.account-edit', (e) => {
         const selectedId = e.currentTarget.id;
         const url = 'app/account.show.php';
-
+        
         $.get(url, { id: selectedId }, (response) => {
             const account = JSON.parse(response);
-
             title.html('Editar cuenta');
             id.val(account.id);
             firstname.val(account.name);
@@ -189,12 +188,12 @@ $(document).ready(function () {
 
     //Al ocultarse el formulario
     $('#account-modal').on('hidden.bs.modal', (e) => {
-        const element = e.currentTarget.id;
         reset();
     });
 
     //Al mostrarse el formulario
-    $('#account-modal').on('show.bs.modal', function (e) {
+    $('#account-modal').on('shown.bs.modal', (e) => {
+        focusInputs();
     });
 
     function showAlert(alert) {
@@ -215,19 +214,17 @@ $(document).ready(function () {
     function reset() {
         form.removeClass('was-validated');
         title.html('Nueva cuenta');
-        clearItems();
+        clearIputs();
     }
 
-    function clearItems() {
-        items = inputs;
-        items.forEach(element => {
+    function clearIputs() {
+        inputs.forEach(element => {
             element.val('');
         });
     }
 
-    function focusItems(items) {
-        items.forEach(element => {
-            console.log(element);
+    function focusInputs() {
+        inputs.forEach(element => {
             element.focus();
         });
     }
@@ -246,7 +243,7 @@ $(document).ready(function () {
         age = $('#age');
         address = $('#address');
         gender = $('input:radio[name="gender"]');
-        inputs = [id, firstname, lastname, email, password, dni, phone, zipcode, age, address];
+        inputs = [id, lastname, email, password, dni, phone, zipcode, age, address, firstname];
 
         form = $('#account-form');
         id.val('');
