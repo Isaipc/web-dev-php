@@ -19,8 +19,7 @@
 
 <body class="">
     <div class="container p-2">
-        <div id="alert-account" class="alert alert-success bg-success shadow-lg"
-            role="alert">
+        <div id="alert-account" class="alert alert-success bg-success shadow-lg in-top" role="alert">
             <strong><i id="alert-type" class="fa fa-check" aria-hidden="true"></i></strong>
             <span id="alert-message" class="ml-2 text-white">correcto</span>
         </div>
@@ -78,51 +77,54 @@
                                     <input id="name" name="nombre" type="text" class="text-uppercase form-control"
                                         required>
                                     <label for="name">Nombre</label>
-                                    <div class="invalid-feedback">El nombre es un campo requerido</div>
+                                    <div class="invalid-feedback">El nombre es equerido</div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 md-form">
                                     <input id="lastname" name="apellidos" type="text"
                                         class="text-uppercase form-control" required>
                                     <label for="lastname">Apellidos</label>
-                                    <div class="invalid-feedback">El apellido es un campo requerido</div>
+                                    <div class="invalid-feedback">El apellido es requerido</div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-lg-7 col-md-6 md-form">
                                     <input id="email" name="email" type="email" class="form-control" required>
                                     <label for="email">Email</label>
-                                    <div class="invalid-feedback">El email debe ser valido</div>
+                                    <div class="invalid-feedback">El email es requerido y debe ser valido</div>
                                 </div>
                                 <div class="col-lg-5 col-md-6 md-form">
                                     <input id="password" name="password" type="password" class="form-control" required>
                                     <label for="password">Contraseña</label>
-                                    <div class="invalid-feedback">La contraseña es un campo requerido</div>
+                                    <div class="invalid-feedback">La contraseña es requerida</div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 md-form">
-                                    <input id="dni" name="dni" type="number" class="form-control" min="0" required>
+                                    <input id="dni" name="dni" type="number" class="form-control" required>
                                     <label for="dni">DNI</label>
-                                    <div class="invalid-feedback">El DNI es un campo requerido</div>
+                                    <div class="invalid-feedback">El DNI es requerido</div>
                                 </div>
                                 <div class="col-md-4 md-form">
-                                    <input id="phone" name="telefono" type="number" class="form-control" min="0"
-                                        required>
+                                    <input id="phone" name="telefono" type="number" class="form-control" required>
                                     <label for="phone">Telefono</label>
-                                    <div class="invalid-feedback">El telefono es un campo requerido</div>
+                                    <div class="invalid-feedback">El telefono es requerido</div>
                                 </div>
 
                                 <div class="col-md-4 md-form">
-                                    <input id="zipcode" name="cp" type="number" class="form-control" min="0" required>
+                                    <input id="zipcode" name="cp" type="number" class="form-control" min="10000"
+                                        max="99999" required>
                                     <label for="zipcode">Código postal</label>
-                                    <div class="invalid-feedback">El código postal es un campo requerido</div>
+                                    <div class="invalid-feedback">
+                                        El código postal es requerido con un máximo de 5 digitos
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 md-form">
-                                    <input id="age" name="edad" type="number" class="form-control" min="0" required>
+                                    <input id="age" name="edad" type="number" class="form-control" min="18" max="127"
+                                        required>
                                     <label for="age">Edad</label>
-                                    <div class="invalid-feedback">La edad es un campo requerido</div>
+                                    <div class="invalid-feedback">La edad es requerida y debe estar entre 18 y 127</div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="mb-2">Sexo</div>
@@ -144,7 +146,7 @@
                                 <div class="col-12 mb-3 md-form">
                                     <input id="address" name="direccion" type="text" class="form-control" required>
                                     <label for="address">Dirección</label>
-                                    <div class="invalid-feedback">La dirección es un campo requerido</div>
+                                    <div class="invalid-feedback">La dirección es requerida</div>
                                 </div>
                             </div>
                         </div>

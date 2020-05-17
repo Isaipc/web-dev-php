@@ -61,8 +61,7 @@ $(document).ready(function () {
                     alertObj = { type: 'success', message: 'Guardado exitoso' };
                 }
                 else
-                    alertObj = { type: 'danger', message: 'Se ha producido un error' };
-                
+                    alertObj = { type: 'danger', message: 'Se ha producido un error. ' + response };
                 showAlert(alertObj);
             });
         }
@@ -194,14 +193,12 @@ $(document).ready(function () {
     $('#account-modal').on('show.bs.modal', function (e) {
     });
 
-
     function showAlert(alert) {
         let iClasses = alert.type == 'success' ? 'fa fa-check' : 'fa fa-times';
         let alertClasses = 'alert-' + alert.type + ' bg-' + alert.type;
         
         $('#alert-type').removeClass().addClass(iClasses);
         $('#alert-account').removeClass('alert-success alert-danger bg-success bg-danger');
-        console.log($('#alert-account'));
         $('#alert-account').addClass(alertClasses);
 
         $('#alert-message').html(alert.message);
