@@ -1,6 +1,6 @@
 # PHP CRUD con JS y MySQL 
 
-## About
+## Acerca de
 Este es un pequeño proyecto CRUD usando tecnologias web tradicionales.
 
 ## Requerimientos 
