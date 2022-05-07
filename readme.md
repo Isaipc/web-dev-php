@@ -13,7 +13,7 @@ Este es un pequeño proyecto CRUD usando tecnologias web tradicionales.
 
 1. Clonar o descargar este proyecto en:
     - `C:\xampp\htdocs\` si usas XAMPP 
-    - `C:\wamp64\wwww` si usas WAMP
+    - `C:\wamp64\wwww\` si usas WAMP
 2. Abrir un terminal en la carpeta del proyecto
 3. Instalar las dependencias:
 ```
