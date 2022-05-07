@@ -20,7 +20,7 @@ Este es un pequeño proyecto CRUD usando tecnologias web tradicionales.
 composer install
 ```
 4. Crear un archivo `.env` especificando las credenciales de tu conexion de BD
-Puedes apoyarte del archivo `.env.expample`
+Puedes apoyarte del archivo `.env.expample`.
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -29,6 +29,7 @@ DB_DATABASE=nombre_bd
 DB_USERNAME=username
 DB_PASSWORD=password
 ```
-5. Listo 👍. Recuerda acceder a la pagina con `localhost/web-de-php`
+5. Ejecuta en tu gestor de bases de datos el archivo `db.sql`.
+6. Listo 👍. Recuerda acceder a la pagina con `localhost/web-de-php`.
 
 
