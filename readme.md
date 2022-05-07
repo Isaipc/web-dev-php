@@ -1,13 +1,24 @@
-# INSTRUCCIONES PARA EVALUAR LA UNIDAD 4
+# PHP CRUD con JS y MySQL 
 
-### PROYECTO FINAL - Fecha de entrega:  14 DE MAYO DE 2020
+## About
+Este es un pequeño proyecto CRUD usando tecnologias web tradicionales.
 
-Una vez elaborado y validado el formulario para la unidad 3 ( se anexa en la parte inferior) se deberá utilizar el mismo; cuando todas las validaciones sean correctas  en lugar de enviar el mensaje **“FORMULARIO LLENADO CORRECTAMENTE”**, deberá enviarlo a una base de datos y guardarlos en la misma.
-Asi mismo deberá además de **INSETAR DATOS, MODIFICAR, ELIMINAR Y REALIZAR BUSQUEDA**.
+## Requerimientos 
+- WAMP ó XAMPP 
+    - PHP 7.x
+    - MySQL 5.6+ | MariaDB 10.4+
+- Composer 
 
-Esta actividad la pueden realizar en parejas, La fecha limite de entrega es la ya mencionada en la parte superior, enviarla al correo icarmonaloeza@hotmail.com, cuyo nombre será Apellido Paterno, Apellido Materno y nombre, el asunto del correo será **PROGRAMACION WEB – PHP**. 
- Envio material de apoyo son 2 archivos power point llamados **“INTRODUCCION A PHP” Y “CONEXIÓN DE PHP Y MYSQL”**, 
- recuerden que varían según las versiones de PHP y Mysql que están usando.
+## Instalación
 
+1. Clonar o descargar este proyecto en:
+    - `C:\xampp\htdocs\` si usas XAMPP 
+    - `C:\wamp64\wwww` si usas WAMP
+2. Abrir un terminal en la carpeta del proyecto
+3. Instalar las dependencias:
+```
+composer install
+```
+4. Listo 👍. Recuerda acceder a la pagina con `localhost/web-de-php`
 
 
